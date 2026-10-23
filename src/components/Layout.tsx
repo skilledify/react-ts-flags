@@ -25,13 +25,13 @@ function ScrollToTop() {
 
 function Logo() {
   return (
-    <Link to="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Флаголэнд — на главную">
-      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-grape via-sky to-mint text-2xl shadow-[0_4px_0_#5a3ee6] transition-transform duration-300 group-hover:rotate-12 md:h-12 md:w-12">
+    <Link to="/" className="group flex items-center gap-2.5 shrink-0" aria-label="Флажок — на главную">
+      <span className="flex justify-center items-center bg-gradient-to-br from-grape via-sky to-mint shadow-[0_4px_0_#5a3ee6] rounded-2xl w-11 md:w-12 h-11 md:h-12 text-2xl group-hover:rotate-12 transition-transform duration-300">
         🌍
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-fairy text-xl leading-none tracking-wide md:text-[1.6rem]">Флаголэнд</span>
-        <span className="mt-1 text-[10px] font-bold uppercase tracking-widest text-ink-soft md:text-[11px]">
+        <span className="font-fairy md:text-[1.6rem] text-xl leading-none tracking-wide">Флажок</span>
+        <span className="mt-1 font-bold text-[10px] text-ink-soft md:text-[11px] uppercase tracking-widest">
           мир на ладошке
         </span>
       </span>
@@ -43,11 +43,11 @@ function Header() {
   const { collectedCount, soundOn, voiceOn, toggleSound, toggleVoice } = useProgress()
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-white/80 bg-white/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-4 md:h-20">
+    <header className="top-0 z-40 sticky bg-white/70 backdrop-blur-xl border-white/80 border-b-2">
+      <div className="flex items-center gap-3 mx-auto px-4 max-w-6xl h-16 md:h-20">
         <Logo />
 
-        <nav className="ml-auto hidden items-center gap-1 md:flex" aria-label="Основная навигация">
+        <nav className="hidden md:flex items-center gap-1 ml-auto" aria-label="Основная навигация">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}
@@ -67,10 +67,10 @@ function Header() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 md:ml-2">
+        <div className="flex items-center gap-1.5 ml-auto md:ml-2">
           <Link
             to="/collection"
-            className="flex items-center gap-1.5 rounded-xl border-2 border-white bg-white/90 px-2.5 py-1.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5 hover:border-sunny"
+            className="flex items-center gap-1.5 bg-white/90 shadow-sm px-2.5 py-1.5 border-2 border-white hover:border-sunny rounded-xl font-black text-sm transition hover:-translate-y-0.5"
             title="Открыть альбом флагов"
           >
             <span aria-hidden="true">🚩</span>
@@ -83,7 +83,7 @@ function Header() {
           <button
             type="button"
             onClick={toggleSound}
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/90 text-lg shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+            className="flex justify-center items-center bg-white/90 hover:bg-white shadow-sm rounded-xl w-9 h-9 text-lg transition hover:-translate-y-0.5"
             aria-label={soundOn ? 'Выключить звуки' : 'Включить звуки'}
             aria-pressed={soundOn}
             title={soundOn ? 'Звуки включены' : 'Звуки выключены'}
@@ -94,7 +94,7 @@ function Header() {
           <button
             type="button"
             onClick={toggleVoice}
-            className="hidden h-9 w-9 items-center justify-center rounded-xl bg-white/90 text-lg shadow-sm transition hover:-translate-y-0.5 hover:bg-white sm:flex"
+            className="hidden sm:flex justify-center items-center bg-white/90 hover:bg-white shadow-sm rounded-xl w-9 h-9 text-lg transition hover:-translate-y-0.5"
             aria-label={voiceOn ? 'Выключить озвучку' : 'Включить озвучку'}
             aria-pressed={voiceOn}
             title={voiceOn ? 'Озвучка включена' : 'Озвучка выключена'}
@@ -110,10 +110,10 @@ function Header() {
 function BottomNav() {
   return (
     <nav
-      className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t-2 border-white/80 bg-white/90 backdrop-blur-xl md:hidden"
+      className="md:hidden bottom-0 safe-bottom z-40 fixed inset-x-0 bg-white/90 backdrop-blur-xl border-white/80 border-t-2"
       aria-label="Мобильная навигация"
     >
-      <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-2 py-1.5">
+      <div className="gap-1 grid grid-cols-5 mx-auto px-2 py-1.5 max-w-md">
         {NAV_ITEMS.map((item) => (
           <NavLink
             key={item.to}
@@ -143,23 +143,23 @@ export function Layout() {
     <div className="relative min-h-svh">
       <a
         href="#main-content"
-        className="sr-only z-50 rounded-xl bg-white px-4 py-2 font-bold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only focus:not-sr-only focus:top-4 focus:left-4 z-50 focus:fixed bg-white px-4 py-2 rounded-xl font-bold text-ink"
       >
         Перейти к содержимому
       </a>
 
-      <div className="sky-bg fixed inset-0 -z-10" aria-hidden="true" />
+      <div className="-z-10 fixed inset-0 sky-bg" aria-hidden="true" />
       <Clouds />
       <ScrollToTop />
       <Header />
 
-      <main id="main-content" className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-28 pt-6 md:pb-16 md:pt-10">
+      <main id="main-content" className="z-10 relative mx-auto px-4 pt-6 md:pt-10 pb-28 md:pb-16 w-full max-w-6xl">
         <div key={pathname} className="page-enter">
           <Outlet />
         </div>
 
-        <footer className="mt-14 border-t border-ink/10 pt-6 text-center text-[11px] font-bold leading-relaxed text-ink-soft md:mt-20">
-          <p>Флаголэнд · игра-путешествие для маленьких исследователей 🌈</p>
+        <footer className="mt-14 md:mt-20 pt-6 border-ink/10 border-t font-bold text-[11px] text-ink-soft text-center leading-relaxed">
+          <p>Флажок · игра-путешествие для маленьких исследователей 🌈</p>
           <p className="mt-1">
             Флаги: <span className="text-ink">flagcdn.com</span> · факты собраны с любовью к географии
           </p>
