@@ -68,7 +68,7 @@ export function CountryModal({ country, onClose }: CountryModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[75] flex items-end justify-center sm:items-center sm:p-6"
+      className="fixed inset-0 z-[75] flex justify-center sm:p-6 pb-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="country-modal-title"
@@ -84,7 +84,7 @@ export function CountryModal({ country, onClose }: CountryModalProps) {
         tabIndex={-1}
       />
 
-      <div className="no-scrollbar relative max-h-[93svh] w-full max-w-xl animate-bounce-in overflow-y-auto rounded-t-[2.2rem] bg-cream shadow-2xl sm:rounded-[2.2rem]">
+      <div className="relative max-h-[85svh] w-full max-w-xl animate-bounce-in overflow-y-auto rounded-t-[2.2rem] bg-cream shadow-2xl sm:rounded-[2.2rem] scrollbar-thin">
         <div
           className="relative overflow-hidden px-5 pb-7 pt-9 text-white sm:px-7"
           style={{ backgroundImage: `linear-gradient(135deg, ${continent?.from}, ${continent?.to})` }}
