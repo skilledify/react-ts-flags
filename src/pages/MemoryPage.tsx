@@ -31,7 +31,7 @@ function MemoryIntro({ onStart }: { onStart: (level: MemoryLevel) => void }) {
       <header className="grid items-center gap-4 overflow-hidden rounded-[2rem] border-4 border-white bg-white/80 p-5 shadow-[0_12px_40px_rgba(47,35,80,0.08)] backdrop-blur sm:grid-cols-[1fr_auto] sm:p-7">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-mint/15 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-ink">
-            🃏 Мемори
+            🃏 Пары
           </span>
           <h1 className="mt-2 text-balance text-3xl font-black leading-tight tracking-tight sm:text-4xl">
             Найди пару: флаг и страна

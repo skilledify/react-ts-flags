@@ -100,13 +100,6 @@ export const EUROPE_COUNTRIES: Country[] = [
     fact: 'Флаг Польши — белый и красный. Здесь родился астроном Николай Коперник.',
   },
   {
-    code: 'ua',
-    name: 'Украина',
-    capital: 'Киев',
-    continent: 'europe',
-    fact: 'Флаг Украины — синее небо над золотым пшеничным полем.',
-  },
-  {
     code: 'dk',
     name: 'Дания',
     capital: 'Копенгаген',

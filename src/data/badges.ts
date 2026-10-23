@@ -113,7 +113,7 @@ export const BADGES: BadgeDef[] = [
   {
     id: 'memory-three',
     title: 'Тренировка памяти',
-    description: 'Собери мемори из 3 пар',
+    description: 'Собери пары из 3 пар',
     emoji: '🃏',
     tier: 'bronze',
     progress: (p) => ({
@@ -124,7 +124,7 @@ export const BADGES: BadgeDef[] = [
   {
     id: 'memory-six',
     title: 'Супер-память',
-    description: 'Собери мемори из 6 пар',
+    description: 'Собери пары из 6 пар',
     emoji: '🧠',
     tier: 'silver',
     progress: (p) => ({
@@ -135,7 +135,7 @@ export const BADGES: BadgeDef[] = [
   {
     id: 'memory-ten',
     title: 'Память как у слона',
-    description: 'Собери мемори из 10 пар',
+    description: 'Собери пары из 10 пар',
     emoji: '🐘',
     tier: 'gold',
     progress: (p) => ({

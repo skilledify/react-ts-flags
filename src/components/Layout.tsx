@@ -8,7 +8,7 @@ import { ToastHost } from './ToastHost'
 const NAV_ITEMS = [
   { to: '/map', label: 'Карта', emoji: '🗺️' },
   { to: '/quiz', label: 'Викторина', emoji: '🎯' },
-  { to: '/memory', label: 'Мемори', emoji: '🃏' },
+  { to: '/memory', label: 'Пары', emoji: '🃏' },
   { to: '/collection', label: 'Альбом', emoji: '📔' },
   { to: '/achievements', label: 'Награды', emoji: '🏆' },
 ]
