@@ -149,7 +149,7 @@
       radial-gradient(circle at 88% 4%, rgba(255, 122, 112, 0.2), transparent 22rem),
       radial-gradient(circle at 78% 82%, rgba(67, 201, 184, 0.16), transparent 26rem),
       linear-gradient(180deg, #cdeeff 0%, #e8f7ff 38%, #fff8e7 100%);
-    background-attachment: fixed;
+    background-attachment: scroll;
   }
 
   .dot-grid {

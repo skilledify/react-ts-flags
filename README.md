@@ -1,32 +1,103 @@
-# React + TypeScript + Vite
+# Флаголэнд 🗺️
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Весёлая детская игра-путешествие по флагам мира. Собирай флаги, знакомься со странами и столицами, проходи викторины, тренируй память и открывай награды.
 
-Currently, two official plugins are available:
+В приложении **196 стран и государств** пяти частей света: Европа, Азия, Африка, Америка и Океания.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Возможности
 
-## React Compiler
+- 🏳️ **Коллекция флагов** — 196 карточек с названием страны, столицей и коротким фактом.
+- 🗺️ **Карта мира** — путешествие по континентам с прогрессом по каждому региону.
+- 🧠 **Викторина** — три типа вопросов: угадать флаг, страну и столицу. Серии правильных ответов и очки.
+- 🃏 **Мемори** — три уровня сложности: 3, 6 и 10 пар флагов.
+- 🏆 **Достижения** — значки за собранные флаги, серии и победы.
+- 🔊 **Звуки и речь** — озвучивание названий стран и звуковые эффекты можно включать и выключать.
+- 💾 **Прогресс сохраняется** — в `localStorage`, без регистрации и сервера.
+- 📱 **Адаптивный интерфейс** — удобно играть и на компьютере, и на телефоне.
+- ✨ **Анимации** — облака, конфетти, покачивание карточек, попугай Кеша и другие маленькие радости.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Стек
 
-## Expanding the Oxlint configuration
+- [Vite](https://vite.dev/) 8
+- [React](https://react.dev/) 19 + TypeScript
+- [React Router](https://reactrouter.com/) 7 (декларативные маршруты)
+- [Tailwind CSS](https://tailwindcss.com/) 4
+- Шрифты Google Fonts: Balsamiq Sans, Marmelad, Ruslan Display
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Запуск
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Нужен Node.js 22 (см. `.nvmrc`).
+
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Откройте адрес из терминала, обычно `http://localhost:5173`.
+
+### Сборка и проверки
+
+```bash
+npm run build    # typecheck + production-сборка в dist/
+npm run preview  # локальный просмотр production-сборки
+npm run lint     # oxlint
+```
+
+## Данные и флаги
+
+Страны и факты хранятся локально в `src/data/countries/` — по файлу на каждый континент. Это делает игру быстрой и независимой от внешних API.
+
+Изображения флагов загружаются с бесплатного [flagcdn.com](https://flagcdn.com/) по коду страны ISO 3166-1 alpha-2. **API-ключ не нужен.**
+
+> REST Countries API v3.1 больше не используется: сервис объявил его устаревшим. Поэтому база стран курируется локально.
+
+## Публикация
+
+### GitHub Pages
+
+В репозитории уже есть workflow `.github/workflows/deploy.yml`. Он собирает проект при push в `main`, подставляет базовый путь `/<имя-репозитория>/` и публикует `dist`.
+
+1. Запушьте проект в GitHub.
+2. Откройте **Settings → Pages**.
+3. В разделе **Build and deployment** выберите **Source: GitHub Actions**.
+4. Сделайте push в `main` или запустите workflow вручную на вкладке **Actions**.
+
+Для клиентских маршрутов workflow копирует `dist/index.html` в `dist/404.html`, поэтому прямые ссылки вроде `/quiz` на GitHub Pages тоже открываются.
+
+### Netlify
+
+В корне есть `netlify.toml` с командой сборки, папкой `dist` и SPA-редиректом.
+
+1. Импортируйте репозиторий в Netlify.
+2. Оставьте настройки из `netlify.toml` — ничего указывать вручную не нужно.
+3. Нажмите **Deploy**.
+
+Netlify собирает приложение в корне домена. Переменные окружения и API-ключи не требуются.
+
+## Переменные окружения
+
+Приложение не нуждается в ключах API. Единственная необязательная переменная:
+
+| Переменная | Назначение |
+| --- | --- |
+| `VITE_BASE_PATH` | Базовый путь сборки, если сайт живёт в подпапке (например, `/react-ts-flags/`) |
+
+Пример лежит в `.env.example`. На GitHub Actions значение выставляется автоматически.
+
+## Структура проекта
+
+```text
+src/
+  components/   общие компоненты: макет, флаги, карточки, маскот, конфетти
+  data/
+    countries/  страны и факты по континентам
+    badges.ts   достижения
+    continents.ts
+  lib/          прогресс, викторина, мемори, звук, случайные выборы
+  pages/        страницы приложения
+  index.css     тема Tailwind, шрифты и анимации
+```
+
+## Лицензия
+
+Учебный проект. Флаги предоставлены flagcdn.com; перед публикацией проверьте условия использования сервиса.
