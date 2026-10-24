@@ -252,33 +252,38 @@ export function HomePage() {
           </Link>
         </div>
 
-        <div className="no-scrollbar -mx-4 flex gap-3 overflow-x-auto px-4 pb-2">
-          {continentStats.map(({ continent, total, collected }) => (
-            <Link
-              key={continent.id}
-              to={`/map/${continent.id}`}
-              className="group relative w-[10.5rem] shrink-0 overflow-hidden rounded-2xl border-2 border-white bg-white/85 p-3 shadow-sm transition hover:-translate-y-1"
-            >
-              <div
-                className="flex h-20 items-center justify-center rounded-xl text-3xl"
-                style={{ backgroundImage: `linear-gradient(135deg, ${continent.from}, ${continent.to})` }}
+        <div className="relative mb-2">
+          <div className="-mx-4 flex gap-3 overflow-x-auto scrollbar-thin px-4 pb-4 snap-x">
+            {continentStats.map(({ continent, total, collected }) => (
+              <Link
+                key={continent.id}
+                to={`/map/${continent.id}`}
+                className="group relative min-w-[9rem] sm:w-[10.5rem] shrink-0 overflow-hidden rounded-2xl border-2 border-white bg-white/85 p-3 sm:p-4 shadow-sm transition hover:-translate-y-1 snap-start"
               >
-                <span className="drop-shadow-md" aria-hidden="true">
-                  {continent.emoji}
-                </span>
-              </div>
-              <p className="mt-2 text-sm font-black">{continent.name}</p>
-              <p className="text-[11px] font-bold text-ink-soft">
-                {collected}/{total} флагов
-              </p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink/10">
                 <div
-                  className="h-full rounded-full"
-                  style={{ width: `${(collected / total) * 100}%`, backgroundColor: continent.accent }}
-                />
-              </div>
-            </Link>
-          ))}
+                  className="flex h-16 sm:h-20 items-center justify-center rounded-xl text-3xl sm:text-4xl"
+                  style={{ backgroundImage: `linear-gradient(135deg, ${continent.from}, ${continent.to})` }}
+                >
+                  <span className="drop-shadow-md" aria-hidden="true">
+                    {continent.emoji}
+                  </span>
+                </div>
+                <p className="mt-2 sm:mt-2.5 text-sm sm:text-base font-black">{continent.name}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-ink-soft">
+                  {collected}/{total} флагов
+                </p>
+                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink/10">
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: `${(collected / total) * 100}%`, backgroundColor: continent.accent }}
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+          <p className="mt-1 text-[10px] font-bold text-ink-soft text-center">
+            → Проведите пальцем или скроллите, чтобы увидеть все континенты
+          </p>
         </div>
       </section>
     </div>

@@ -219,6 +219,11 @@
   .scroll-fade {
     mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
   }
+
+  .gradient-mask {
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    pointer-events: none;
+  }
 }
 
 @layer utilities {
