@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from 'react'
 import { Link } from 'react-router'
 import { Mascot, SpeechBubble } from '../components/Mascot'
 import { Flag } from '../components/Flag'
@@ -94,6 +100,7 @@ export function HomePage() {
   const { collectedCount, progress, earnedBadges } = useProgress()
   const scrollRef = useRef<HTMLDivElement>(null)
   const [canScroll, setCanScroll] = useState(false)
+  const drag = useRef({ active: false, moved: false, startX: 0, startScroll: 0 })
 
   useEffect(() => {
     const el = scrollRef.current
@@ -108,6 +115,51 @@ export function HomePage() {
       window.removeEventListener('resize', check)
     }
   }, [])
+
+  const handleDragStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+    const el = scrollRef.current
+    if (!el || el.scrollWidth <= el.clientWidth + 1) return
+
+    drag.current = {
+      active: true,
+      moved: false,
+      startX: event.clientX,
+      startScroll: el.scrollLeft,
+    }
+
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const state = drag.current
+      if (!state.active) return
+      const delta = moveEvent.clientX - state.startX
+      if (!state.moved && Math.abs(delta) < 4) return
+      state.moved = true
+      moveEvent.preventDefault()
+      el.scrollLeft = state.startScroll - delta
+    }
+
+    const stopDrag = () => {
+      drag.current.active = false
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', stopDrag)
+      window.removeEventListener('blur', stopDrag)
+      // Сбрасываем флаг после click, чтобы он не блокировал следующий обычный клик.
+      window.setTimeout(() => {
+        drag.current.moved = false
+      }, 0)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', stopDrag)
+    window.addEventListener('blur', stopDrag)
+  }
+
+  const suppressClickAfterDrag = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (!drag.current.moved) return
+    event.preventDefault()
+    event.stopPropagation()
+    drag.current.moved = false
+  }
 
   const continentStats = CONTINENTS.map((continent) => {
     const total = getCountriesByContinent(continent.id).length
@@ -270,7 +322,15 @@ export function HomePage() {
         </div>
 
         <div className="relative mb-2">
-          <div ref={scrollRef} className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-thin px-4 pb-4 snap-x min-w-0">
+          <div
+            ref={scrollRef}
+            className={`flex select-none gap-2 overflow-x-auto scrollbar-thin px-4 pb-4 snap-x min-w-0 sm:gap-3 ${
+              canScroll ? 'cursor-grab active:cursor-grabbing' : ''
+            }`}
+            onPointerDown={handleDragStart}
+            onClickCapture={suppressClickAfterDrag}
+            onDragStart={(event) => event.preventDefault()}
+          >
             {continentStats.map(({ continent, total, collected }) => (
               <Link
                 key={continent.id}
@@ -300,7 +360,7 @@ export function HomePage() {
           </div>
           {canScroll && (
             <p className="mt-1 text-[10px] font-bold text-ink-soft text-center">
-              → Проведите пальцем или скроллите, чтобы увидеть все континенты
+              → Потяните карточки в сторону или используйте скролл, чтобы увидеть все континенты
             </p>
           )}
         </div>
