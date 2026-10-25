@@ -237,14 +237,16 @@
 
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-ink-soft) transparent;
+    scrollbar-color: var(--color-ink-soft) rgba(107, 94, 138, 0.15);
+    scrollbar-gutter: stable;
   }
   .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(107, 94, 138, 0.15);
+    border-radius: 10px;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
     background-color: var(--color-ink-soft);

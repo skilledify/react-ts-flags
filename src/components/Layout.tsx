@@ -13,6 +13,8 @@ const NAV_ITEMS = [
   { to: '/achievements', label: 'Награды', emoji: '🏆' },
 ]
 
+
+
 function ScrollToTop() {
   const { pathname } = useLocation()
 
@@ -25,12 +27,12 @@ function ScrollToTop() {
 
 function Logo() {
   return (
-    <Link to="/" className="group flex items-center gap-2.5 shrink-0" aria-label="Флажок — на главную">
-      <span className="flex justify-center items-center bg-gradient-to-br from-grape via-sky to-mint shadow-[0_4px_0_#5a3ee6] rounded-2xl w-11 md:w-12 h-11 md:h-12 text-2xl group-hover:rotate-12 transition-transform duration-300">
+    <Link to="/" className="group flex items-center gap-2 sm:gap-2.5 min-w-0" aria-label="Флажок — на главную">
+      <span className="flex justify-center items-center bg-gradient-to-br from-grape via-sky to-mint shadow-[0_4px_0_#5a3ee6] rounded-2xl w-7 sm:w-9 md:w-11 h-7 sm:h-9 md:h-11 text-xs sm:text-xl group-hover:rotate-12 transition-transform duration-300">
         🌍
       </span>
-      <span className="flex flex-col leading-none">
-        <span className="font-fairy md:text-[1.6rem] text-xl leading-none tracking-wide">Флажок</span>
+      <span className="flex flex-col min-w-0 leading-none">
+        <span className="min-w-0 font-fairy md:text-[1.6rem] text-base sm:text-lg truncate leading-none tracking-wide">Флажок</span>
         <span className="hidden sm:block mt-1 font-bold text-[10px] text-ink-soft sm:text-[11px] uppercase tracking-widest">
           мир на ладошке
         </span>
@@ -50,7 +52,7 @@ function Header({
 
   return (
     <header className="top-0 z-40 sticky bg-white/95 backdrop-blur-xl border-white/80 border-b-2">
-      <div className="flex items-center justify-between gap-2 mx-auto px-3 sm:px-4 max-w-6xl h-14 sm:h-16 md:h-20">
+      <div className="flex justify-between items-center gap-1 sm:gap-1.5 mx-auto px-2 sm:px-3 md:px-4 min-w-0 max-w-6xl h-14 sm:h-16 md:h-20">
         <Logo />
 
 
@@ -74,10 +76,10 @@ function Header({
           ))}
         </nav>
 
-        <div className="flex items-center gap-1.5 ml-auto md:ml-2">
+        <div className="flex items-center gap-1 sm:gap-1.5 ml-auto md:ml-2 min-w-0">
           <Link
             to="/collection"
-            className="flex items-center gap-1.5 bg-white/90 shadow-sm px-2.5 py-1.5 border-2 border-white hover:border-sunny rounded-xl font-black text-sm transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2"
+            className="flex items-center gap-1 sm:gap-1.5 bg-white/90 shadow-sm px-2 sm:px-2.5 py-1.5 border-2 border-white hover:border-sunny rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2 font-black text-xs sm:text-sm transition hover:-translate-y-0.5"
             title="Открыть альбом флагов"
             aria-label={`Мой альбом — собрано ${collectedCount} из ${TOTAL_COUNTRIES} флагов`}
           >
@@ -91,7 +93,7 @@ function Header({
           <button
             type="button"
             onClick={toggleSound}
-            className="flex justify-center items-center shrink-0 bg-white/90 hover:bg-white shadow-sm rounded-xl w-10 h-10 text-lg transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2"
+            className="flex justify-center items-center bg-white/90 hover:bg-white shadow-sm rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2 w-9 sm:w-10 h-9 sm:h-10 text-base sm:text-lg transition hover:-translate-y-0.5 shrink-0"
             aria-label={soundOn ? 'Выключить звуки' : 'Включить звуки'}
             aria-pressed={soundOn}
             title={soundOn ? 'Звуки включены' : 'Звуки выключены'}
@@ -104,7 +106,7 @@ function Header({
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-expanded={isMobileMenuOpen}
             aria-label={isMobileMenuOpen ? 'Закрыть навигацию' : 'Открыть навигацию'}
-            className="min-[920px]:hidden shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-white/90 shadow-sm border border-white hover:bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2"
+            className="min-[920px]:hidden flex justify-center items-center bg-white/90 hover:bg-white shadow-sm border border-white rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape focus-visible:ring-offset-2 w-9 sm:w-10 h-9 sm:h-10 transition shrink-0"
           >
             {isMobileMenuOpen ? '✕' : '☰'}
           </button>
@@ -156,7 +158,7 @@ export function Layout() {
   }, [isMobileMenuOpen])
 
   return (
-    <div className="relative min-h-svh">
+    <div className="relative flex flex-col min-h-svh">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:top-4 focus:left-4 z-50 focus:fixed bg-white px-4 py-2 rounded-xl font-bold text-ink"
@@ -171,7 +173,7 @@ export function Layout() {
 
       {isMobileMenuOpen && (
         <div
-          className="md:hidden min-[920px]:hidden fixed inset-0 z-[60]"
+          className="min-[920px]:hidden md:hidden z-[60] fixed inset-0"
           role="dialog"
           aria-modal="true"
           aria-label="Мобильное меню навигации"
@@ -184,18 +186,18 @@ export function Layout() {
           <div
             className={`fixed top-0 right-0 z-10 w-full max-w-xs sm:max-w-md h-screen bg-white shadow-2xl flex flex-col overflow-y-auto transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
           >
-            <div className="p-5 border-b border-white/80 flex items-center justify-between">
+            <div className="flex justify-between items-center p-5 border-white/80 border-b">
               <h2 className="font-black text-lg">Навигация</h2>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/50 hover:bg-white/70 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape"
+                className="flex justify-center items-center bg-white/50 hover:bg-white/70 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grape w-10 h-10 transition"
                 aria-label="Закрыть меню"
               >
                 ✕
               </button>
             </div>
-            <nav className="p-4 space-y-2">
+            <nav className="space-y-2 p-4">
               {NAV_ITEMS.map((item) => (
                 <NavLink
                   key={item.to}
@@ -203,7 +205,7 @@ export function Layout() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={({ isActive }) =>
                     [
-                      'flex items-center gap-3 rounded-xl px-4 py-3 text-base font-black transition-colors block',
+                      'flex items-center gap-3 rounded-xl px-4 py-3 text-base font-black transition-colors',
                       isActive
                         ? 'bg-grape text-white'
                         : 'text-ink hover:bg-grape/5 hover:text-grape',
@@ -221,18 +223,16 @@ export function Layout() {
         </div>
       )}
 
-      <main id="main-content" className="z-10 relative mx-auto px-4 pt-6 md:pt-10 pb-28 md:pb-16 w-full max-w-6xl">
-        <div key={pathname} className="page-enter">
+      <main
+        id="main-content"
+        className="z-10 relative flex flex-col flex-1 mx-auto px-4 pt-6 md:pt-10 pb-28 md:pb-16 w-full max-w-6xl"
+      >
+        <div key={pathname} className="pb-8 page-enter">
           <Outlet />
         </div>
-
-        <footer className="mt-14 md:mt-20 pt-6 border-ink/10 border-t font-bold text-[11px] text-ink-soft text-center leading-relaxed">
-          <p>Флажок · игра-путешествие для маленьких исследователей 🌈</p>
-          <p className="mt-1">
-            Флаги: <span className="text-ink">flagcdn.com</span> · факты собраны с любовью к географии
-          </p>
-        </footer>
       </main>
+
+
 
       <BottomNav />
       <ToastHost />

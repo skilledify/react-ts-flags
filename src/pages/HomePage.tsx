@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { Mascot, SpeechBubble } from '../components/Mascot'
 import { Flag } from '../components/Flag'
@@ -91,6 +92,22 @@ function HeroMascot({ collected }: { collected: number }) {
 
 export function HomePage() {
   const { collectedCount, progress, earnedBadges } = useProgress()
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScroll, setCanScroll] = useState(false)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const check = () => setCanScroll(el.scrollWidth > el.clientWidth + 1)
+    check()
+    const ro = new ResizeObserver(check)
+    ro.observe(el)
+    window.addEventListener('resize', check)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', check)
+    }
+  }, [])
 
   const continentStats = CONTINENTS.map((continent) => {
     const total = getCountriesByContinent(continent.id).length
@@ -253,12 +270,12 @@ export function HomePage() {
         </div>
 
         <div className="relative mb-2">
-          <div className="-mx-4 flex gap-3 overflow-x-auto scrollbar-thin px-4 pb-4 snap-x">
+          <div ref={scrollRef} className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-thin px-4 pb-4 snap-x min-w-0">
             {continentStats.map(({ continent, total, collected }) => (
               <Link
                 key={continent.id}
                 to={`/map/${continent.id}`}
-                className="group relative min-w-[9rem] sm:w-[10.5rem] shrink-0 overflow-hidden rounded-2xl border-2 border-white bg-white/85 p-3 sm:p-4 shadow-sm transition hover:-translate-y-1 snap-start"
+                className="group relative min-w-[7rem] sm:min-w-[9rem] sm:w-[10.5rem] shrink-0 overflow-hidden rounded-2xl border-2 border-white bg-white/85 p-3 sm:p-4 shadow-sm transition hover:-translate-y-1 snap-start"
               >
                 <div
                   className="flex h-16 sm:h-20 items-center justify-center rounded-xl text-3xl sm:text-4xl"
@@ -281,9 +298,11 @@ export function HomePage() {
               </Link>
             ))}
           </div>
-          <p className="mt-1 text-[10px] font-bold text-ink-soft text-center">
-            → Проведите пальцем или скроллите, чтобы увидеть все континенты
-          </p>
+          {canScroll && (
+            <p className="mt-1 text-[10px] font-bold text-ink-soft text-center">
+              → Проведите пальцем или скроллите, чтобы увидеть все континенты
+            </p>
+          )}
         </div>
       </section>
     </div>
